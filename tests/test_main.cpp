@@ -1,6 +1,6 @@
 #include <cassert>
 
-int add(int a, int b);
+#include "add.h"
 
 int main() {
     assert(add(2, 3) == 5);

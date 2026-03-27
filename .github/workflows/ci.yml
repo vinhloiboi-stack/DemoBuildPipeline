@@ -28,10 +28,10 @@ jobs:
 
     - name: Run Tests
       working-directory: build
-      run: ctest --output-on-failure
+      run: ctest --output-on-failure -C Release
 
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
         name: my-app-binary
-        path: build/my_app
+        path: build/**/my_app
