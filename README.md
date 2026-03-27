@@ -1,2 +1,2 @@
 cmake -S . -B build
-cmake --build build -j# DemoBuildPipeline
+cmake --build build -j

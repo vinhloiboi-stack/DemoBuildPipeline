@@ -1,0 +1,37 @@
+name: C++ CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++ lcov
+
+    - name: Configure CMake
+      # We create a 'build' directory to keep the source clean
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build Project
+      run: cmake --build build --config Release
+
+    - name: Run Tests
+      working-directory: build
+      run: ctest --output-on-failure
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-app-binary
+        path: build/my_app
